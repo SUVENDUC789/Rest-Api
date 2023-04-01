@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Data Using Ajax</title>
+</head>
+
+<body>
+    <center>
+        <h1>Insert Data Using Ajax</h1>
+        <b style="color: white; background-color: green;;" id="alert"></b><br>
+        <b style="color: white; background-color: red;;" id="alert-danger"></b><br>
+        <form class="formreset">
+            <input type="text" id="fname" placeholder="Enter first name"> <br>
+            <input type="text" id="lname" placeholder="Enter last name"> <br>
+            <input type="submit" value="Save" id="save-data">
+        </form>
+
+        <div class="show-data">
+
+        </div>
+
+    </center>
+</body>
+
+<script src="js/jquery-3.6.3.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        function loadData() {
+            $.ajax({
+
+                url: "table-ajax.php",
+                type: "POST",
+                success: function (data) {
+                    $(".show-data").html(data);
+                }
+            });
+        }
+
+        loadData();
+
+        $("#save-data").on("click", function (e) {
+            e.preventDefault();
+            let fname = $('#fname').val();
+            let lname = $('#lname').val();
+
+            // console.log(fname, lname);
+
+            if (fname == "" || lname == "") {
+
+                $("#alert-danger").html("What are you doing...");
+                $("#alert").html("");
+
+            } else {
+                $.ajax({
+                    url: "insert-ajax.php",
+                    type: "POST",
+                    data: { first_name: fname, last_name: lname },
+                    success: function (e) {
+                        $("#alert").html("Your data added successfull !");
+                        $("#alert-danger").html("");
+                        loadData();
+                        $(".formreset").trigger('reset');
+
+                    }
+                });
+            }
+
+
+        });
+
+    });
+</script>
+
+</html>

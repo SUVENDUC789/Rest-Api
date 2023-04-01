@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table</title>
 </head>
+
 <body>
 
     <button id="load-button">Load Data</button>
     <div class="table" id="table-data">
 
     </div>
-    
+
 </body>
 <script src="js/jquery-3.6.3.min.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $("#load-button").on("click",function(e){
+        function loadtable() {
+            $.ajax({
+                url: "ajax-load.php",
+                type: "POST",
+                success: function (data) {
+                    $("#table-data").html(data);
+                }
+
+            });
+        }
+
+        loadtable();
+
+        $("#load-button").on("click", function (e) {
 
             $.ajax({
-                url:"ajax-load.php",
-                type:"POST",
-                success:function(data){
+                url: "ajax-load.php",
+                type: "POST",
+                success: function (data) {
                     $("#table-data").html(data);
                 }
 
@@ -33,4 +48,5 @@
 
     });
 </script>
+
 </html>

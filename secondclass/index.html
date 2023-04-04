@@ -42,6 +42,47 @@
             });
         }
 
+        // dynamic delete data 
+        $(document).on("click", ".delete-btn", function (e) {
+            if (confirm("Realy you want to delete ? ")) {
+                let idstudent = $(this).data("id");
+                let element = this;
+                // alert(idstudent);
+                $.ajax({
+                    url: "delete-ajax.php",
+                    type: "post",
+                    data: { id: idstudent },
+                    success: function (data) {
+                        $(element).closest("tr").fadeOut();
+                        // loadData();
+                        $("#alert-danger").html("Your data deleted successfully !");
+                    }
+                });
+            }
+        });
+
+        $(document).on("click", ".update-btn", function (e) {
+            let idstudent = $(this).data("id");
+            // alert(idstudent);
+            let element = this;
+
+            let fname = prompt("Type your first name : ");
+            let lname = prompt("Type your last name : ");
+            console.log(fname, lname);
+
+            $.ajax({
+                url: "update-ajax.php",
+                type: "post",
+                data: { id: idstudent, fsname: fname, lasname: lname },
+                success: function (data) {
+                    loadData();
+                }
+
+            });
+        });
+
+
+
         loadData();
 
         $("#save-data").on("click", function (e) {

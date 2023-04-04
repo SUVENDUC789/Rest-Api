@@ -3,7 +3,7 @@ $con = mysqli_connect("localhost","root","","test");
 // echo var_dump($con);
 ?>
 <?php
-$sql="select * from students";
+$sql="select * from students ORDER BY SL DESC";
 $result=mysqli_query($con,$sql);
 
 $num=mysqli_num_rows($result);

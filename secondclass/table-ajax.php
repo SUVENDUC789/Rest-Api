@@ -10,6 +10,8 @@ $con=mysqli_connect("localhost","root","","test");
         <th>First Name</th>
         <th>Last Name</th>
         <th>Date of admission</th>
+        <th>Delete</th>
+        <th>Update</th>
     </tr>
 
     <?php
@@ -29,6 +31,8 @@ $con=mysqli_connect("localhost","root","","test");
                 <td>'.$row['first_name'].'</td>
                 <td>'.$row['last_name'].'</td>
                 <td>'.$row['datetime'].'</td>
+                <td><button class="delete-btn" data-id="'.$row['sl'].'">Delete</button></td>
+                <td><button class="update-btn" data-id="'.$row['sl'].'">Update</button></td>
                 </tr>';
     
             }

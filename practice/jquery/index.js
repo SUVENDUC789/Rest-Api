@@ -55,4 +55,21 @@ $(document).ready(function () {
         }
 
     });
+
+    $(document).on("click","#delete",function(){
+
+        let id = $(this).data('id');
+        let element = this;
+
+        $.ajax({
+            url:"delete.php",
+            type:"post",
+            data:{sl:id},
+            success:function(data){
+                // loadData();
+                $(element).closest("tr").fadeOut();
+            }
+        });
+        
+    });
 })

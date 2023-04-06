@@ -11,6 +11,7 @@
 <body>
     <center>
         <h1>Insert Data Using Ajax</h1>
+        <input type="text" name="search" id="search" placeholder="Search Here">
         <b style="color: white; background-color: green;;" id="alert"></b><br>
         <b style="color: white; background-color: red;;" id="alert-danger"></b><br>
         <form class="formreset">
@@ -30,6 +31,21 @@
 
 <script>
     $(document).ready(function () {
+
+        $("#search").keyup(function () {
+            let search_term = $(this).val();
+            // console.log(search_term);
+
+            $.ajax({
+                url: "ajax-live-search.php",
+                type: "POST",
+                data: { serach: search_term },
+                success: function (data) {
+                    $(".show-data").html(data);
+                }
+            });
+
+        });
 
         function loadData() {
             $.ajax({
@@ -61,25 +77,6 @@
             }
         });
 
-        $(document).on("click", ".update-btn", function (e) {
-            let idstudent = $(this).data("id");
-            // alert(idstudent);
-            let element = this;
-
-            let fname = prompt("Type your first name : ");
-            let lname = prompt("Type your last name : ");
-            console.log(fname, lname);
-
-            $.ajax({
-                url: "update-ajax.php",
-                type: "post",
-                data: { id: idstudent, fsname: fname, lasname: lname },
-                success: function (data) {
-                    loadData();
-                }
-
-            });
-        });
 
 
 

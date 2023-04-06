@@ -22,6 +22,7 @@ else {
         <th>First Name</th>
         <th>Last Name</th>
         <th>Date of addmision</th>
+        <th>Delete</th>
     </tr>';
 }
 ?>
@@ -40,6 +41,7 @@ for($i=0;$i<$num;$i++){
     <td>'.$row['first_name'].'</td>
     <td>'.$row['last_name'].'</td>
     <td>'.$row['datetime'].'</td>
+    <td><button class="btn btn-danger" id="delete" data-id="'.$row['sl'].'">Delete</button></td>
     </tr>';
 }
 ?>

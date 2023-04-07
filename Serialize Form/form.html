@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serialize Form</title>
+</head>
+
+<body>
+
+    <center>
+        <div class="response"></div>
+
+        <div class="myform">
+            <h1>Serialize Form</h1>
+            <form>
+                <input type="text" name="name" id="name" placeholder="Enter your name"> <br>
+                <input type="number" name="age" id="age" placeholder="Enter your age "> <br>
+                <div class="mcq">
+                    Gender:
+                    <input type="radio" name="gender" value="male">
+                    Male
+                    <input type="radio" name="gender" value="female">
+                    Female
+                </div>
+                <div class="desh">
+                    Select your country
+                    <select name="country" id="country">
+                        <option value="India">India</option>
+                        <option value="London">London</option>
+                        <option value="America">America</option>
+                        <option value="Rasia">Rasia</option>
+                    </select>
+                </div>
+                <input type="submit">
+            </form>
+        </div>
+    </center>
+</body>
+
+<script src="js/jquery-3.6.3.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        // $(".response").fadeOut();
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+
+            let name = $("#name").val();
+            let age = $("#age").val();
+
+            if (name == '' || age == '' || !$("input:radio[name=gender]").is(":checked")) {
+                $(".response").fadeIn();
+                $(".response").html("All field are required.");
+                $(".response").css("color", "red");
+            } else {
+
+                $.ajax({
+                    url: "save-data-ajax.php",
+                    type: "POST",
+                    data: $("form").serialize(),
+                    beforeSend:function(){
+                        $(".response").html("Loading...");
+                        $(".response").css("color","orange");
+                    },
+                    success: function (data) {
+                        $("form").trigger("reset");
+                        $(".response").html(data);
+                        $(".response").css("color", "green");
+                        // setTimeout(function(){
+                        //     $(".response").fadeOut("slow");
+                        // },4000)
+                    }
+                });
+            }
+            console.log("you try to submit.");
+        });
+    });
+</script>
+
+</html>

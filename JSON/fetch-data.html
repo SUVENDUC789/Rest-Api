@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch -Data Using Ajax</title>
+</head>
+
+<body>
+    <center>
+        <h1>Fetch -Data Using Ajax</h1>
+        <div class="load-data"></div>
+    </center>
+</body>
+
+<script src="js/jquery-3.6.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.getJSON(
+            "https://jsonplaceholder.typicode.com/posts",
+            function (data) {
+                $.each(data, function (key, value) {
+                    $(".load-data").append(value.id + " " + value.title+"<br>");
+                    // console.log(value.id + " " + value.title);
+                });
+            }
+        );
+
+        // $.ajax({
+        //     url: "https://jsonplaceholder.typicode.com/posts",
+        //     type: "GET",
+        //     success: function (data) {
+        //         // $(".load-data").append(data.id + " "+ data.title);
+
+                // $.each(data, function (key, value) {
+                //     $(".load-data").append(value.id + " " + value.title+"<br>");
+                //     // console.log(value.id + " " + value.title);
+                // });
+
+        //         // console.log(data);
+        //     }
+        // });
+    });
+</script>
+
+</html>

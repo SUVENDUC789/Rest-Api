@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Show Data</title>
+</head>
+
+<body>
+
+    <h1>Show Data</h1>
+
+    <div>
+        <table border="1" class="load-data">
+            <tr>
+                <th>SL</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date time</th>
+            </tr>
+            <!-- <tr>
+                <td>1</td>
+                <td>fn</td>
+                <td>ln</td>
+                <td>date</td>
+            </tr> -->
+        </table>
+    </div>
+
+</body>
+<script src="js/jquery-3.6.3.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $.getJSON(
+            "fetch-data.php",
+            function (data) {
+                $.each(data, function (key, value) {
+                    $(".load-data").append(
+                        "<tr>" +
+                        "<td>" + value.sl + "</td>" +
+                        "<td>" + value.first_name + "</td>" +
+                        "<td>" + value.last_name + "</td>" +
+                        "<td>" + value.datetime + "</td>" +
+                        "</tr>");
+                });
+                // console.log(data);
+            }
+        );
+    });
+
+</script>
+
+</html>

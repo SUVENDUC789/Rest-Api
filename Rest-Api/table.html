@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table | SC</title>
+</head>
+
+<body>
+    <center>
+        <table id="show-table" border="1px solid black">
+            <tr>
+                <th>SL</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+            </tr>
+        </table>
+    </center>
+</body>
+
+<script src="js/jquery-3.6.3.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        function loadData() {
+            $.ajax({
+                url: "http://localhost/Ajax/Rest-Api/PHP/fetch-data-all.php",
+                type: "POST",
+                beforeSend:function(){
+                    // $("#show-table").html(`<h2>Loading...</h2>`);
+                },
+                success: function (data) {
+                    if (data.status == false) {
+                        $("#show-table").html(`<h2>${data.message}</h2>`);
+                    } else {
+                        $.each(data, function (key, value) {
+                            $("#show-table").append(`<tr>
+                                            <td>${value.sl}</td>
+                                            <td>${value.first_name}</td>
+                                            <td>${value.last_name}</td>
+                                            <td>${value.gender}</td>
+                                        </tr>`);
+                        });
+                    }
+                }
+            });
+        }
+
+        loadData();
+    });
+</script>
+
+</html>
